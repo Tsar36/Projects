@@ -1,3 +1,5 @@
+# Extend Stage from dev by adding replicas:2 and readinessProbe
+
 resources:
   - ../../base
 
