@@ -2,7 +2,7 @@
 
 resources:
   - deployment.yaml
-  - db-migration-job.yaml
+  - db-migration.yaml
 
 commonLabels:
   environment: dev
