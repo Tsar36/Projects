@@ -1,4 +1,4 @@
-# Step 1: Base Deployment Configurations
+# Step 1: Base Deployment Configurations | Create a basic k8s deployment for the application
 
 apiVersion: apps/v1
 kind: Deployment
