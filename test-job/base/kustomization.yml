@@ -1,4 +1,4 @@
-# Step 3: Kustomization File
+# Step 2.1: Kustomization File | With the help of kustomization, expand by adding DB migration processing for dev
 
 resources:
   - deployment.yaml
