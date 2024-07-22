@@ -1,0 +1,8 @@
+resources:
+  - ../../base
+
+patchesStrategicMerge:
+  - deployment-patch.yaml
+
+commonLabels:
+  environment: staging

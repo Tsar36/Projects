@@ -1,0 +1,18 @@
+# Step 2: DB Migration Job
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: db-migration
+        image: my-db-migration-image:latest
+        command: ["sh", "-c", "./migrate.sh"]
+      restartPolicy: Never
+  backoffLimit: 4
+
+# Make sure the Docker image (my-db-migration-image:latest) contains the migrate.sh script in the root directory 
+# of the container and that the script is executable.

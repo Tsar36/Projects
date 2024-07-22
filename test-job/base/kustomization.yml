@@ -1,0 +1,23 @@
+# Step 3: Kustomization File
+
+resources:
+  - deployment.yaml
+  - db-migration-job.yaml
+
+commonLabels:
+  environment: dev
+
+patchesStrategicMerge:
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: my-app-deployment
+    spec:
+      template:
+        spec:
+          containers:
+            - name: my-app-container
+              env:
+                - name: ENVIRONMENT
+                  value: "dev"
