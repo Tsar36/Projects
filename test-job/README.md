@@ -49,8 +49,9 @@ This project sets up a basic Kubernetes deployment for an application and includ
 
 Navigate to the base directory and run:
 
-```sh
+```
 kubectl apply -k ./base
+```
 
 ## Apply Staging Configuration
 
