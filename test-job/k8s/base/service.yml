@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: your-application-service
+spec:
+  selector:
+    app: your-application
+  ports:
+    - protocol: TCP
+      port: 80  # Port on which the service will be available
+      targetPort: 80  # Port inside the container
+  type: LoadBalancer  # Type of service, e.g., LoadBalancer or NodePort
