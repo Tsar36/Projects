@@ -1,7 +1,8 @@
 # Step 2.1: Kustomization File | With the help of kustomization, expand by adding DB migration processing for dev
 resources:
 - ../../base
-
+- namespace.yml
+namespace: dev
 configMapGenerator:
 - files:
   - migrate.sh
