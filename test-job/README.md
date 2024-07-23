@@ -30,28 +30,28 @@ This repository contains Kubernetes configurations for deploying your applicatio
 
 The base configuration includes the general deployment and service definitions for your application.
 
-- **k8s/base/deployment.yaml**: Defines the deployment of your application.
-- **k8s/base/service.yaml**: Defines the service to expose your application.
-- **k8s/base/kustomization.yaml**: Kustomize file to manage base resources.
+- **k8s/base/deployment.yml**: Defines the deployment of your application.
+- **k8s/base/service.yml**: Defines the service to expose your application.
+- **k8s/base/kustomization.yml**: Kustomize file to manage base resources.
 
 ## Development Overlay
 
 The development overlay extends the base configuration to include database migration processing.
 
-- **k8s/overlays/dev/migration-configmap.yaml**: ConfigMap containing the migration script.
-- **k8s/overlays/dev/kustomization.yaml**: Kustomize file to add the InitContainer for database migrations.
+- **k8s/overlays/dev/migration-configmap.yml**: ConfigMap containing the migration script.
+- **k8s/overlays/dev/kustomization.yml**: Kustomize file to add the InitContainer for database migrations.
 
 ## Staging Overlay
 
 The staging overlay extends the development configuration to include additional settings such as replicas and readiness probes.
 
-- **k8s/overlays/stage/kustomization.yaml**: Kustomize file to set replicas to 2 and add a readiness probe.
+- **k8s/overlays/stage/kustomization.yml**: Kustomize file to set replicas to 2 and add a readiness probe.
 
 ## Production Overlay
 
 The production overlay extends the staging configuration by removing the database migration processing.
 
-- **k8s/overlays/prod/kustomization.yaml**: Kustomize file to remove the InitContainer for database migrations.
+- **k8s/overlays/prod/kustomization.yml**: Kustomize file to remove the InitContainer for database migrations.
 
 ## Applying Configurations
 
