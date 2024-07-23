@@ -1,18 +1,13 @@
 resources:
-  - ../../base
+  - ../stage
 
 patchesStrategicMerge:
-  - ../../overlays/staging/deployment-patch.yaml
-
-commonLabels:
-  environment: production
-
-# Remove the db-migration-job.yaml resource for production
-patchesJson6902:
-  - target:
-      version: batch/v1
-      kind: Job
-      name: db-migration-job
-    patch: |
-      - op: remove
-        path: /spec
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: your-application
+    spec:
+      template:
+        spec:
+          initContainers: []

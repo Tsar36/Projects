@@ -1,4 +1,4 @@
-# Step 2: DB Migration Job
+# Step 2: DB Migration Job, but it was replaced with 'migration-configmap.yml' cause themy home-test env isn't ready for this test deployment.
 
 apiVersion: batch/v1
 kind: Job

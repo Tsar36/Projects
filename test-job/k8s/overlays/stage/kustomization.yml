@@ -1,0 +1,22 @@
+# Extend Stage from dev by adding replicas:2 and readinessProbe
+resources:
+  - ../dev
+
+patchesStrategicMerge:
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: your-application
+    spec:
+      replicas: 2
+      template:
+        spec:
+          containers:
+          - name: your-application-container
+            readinessProbe:
+              httpGet:
+                path: /health
+                port: 80
+              initialDelaySeconds: 5
+              periodSeconds: 10

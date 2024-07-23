@@ -1,26 +1,29 @@
 # Kubernetes Deployment with DB Migration for Development, Staging, and Production
 
 ## Task:
-* Create a basic k8s deployment for the application
-* With the help of kustomization, expand by adding DB migration processing for dev
-* Extend Stage from dev by adding replicas:2 and readinessProbe
-* Prod to expand from stage by removing DB migration processing
+  1.	Base Deployment and Service: Defined in the base directory.
+	2.	Dev Overlay: Adds database migration handling via an InitContainer.
+	3.	Stage Overlay: Extends the dev overlay by setting the number of replicas to 2 and adding a readiness probe.
+	4.	Prod Overlay: Extends the stage overlay by removing the InitContainer used for database migrations.
+
 
 This project sets up a basic Kubernetes deployment for an application and includes a database migration job for the development and staging environments using Kustomize. The production environment excludes the database migration job.
 
 ## Directory Structure
 ```
-.
-├── base
+.k8s/
+├── base/
 │   ├── deployment.yaml
-│   ├── db-migration.yaml
-│   ├── kustomization.yaml
-├── overlays
-│   ├── staging
+│   ├── service.yaml
+│   └── kustomization.yaml
+├── overlays/
+│   ├── dev/
 │   │   ├── kustomization.yaml
-│   │   ├── deployment-patch.yaml
-│   ├── production
-│   │   ├── kustomization.yaml
+│   │   └── migration-configmap.yaml
+│   ├── stage/
+│   │   └── kustomization.yaml
+│   └── prod/
+│       └── kustomization.yaml
 └── README.md
 ```
 

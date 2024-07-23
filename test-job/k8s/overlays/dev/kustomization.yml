@@ -1,23 +1,43 @@
 # Step 2.1: Kustomization File | With the help of kustomization, expand by adding DB migration processing for dev
-
 resources:
-  - deployment.yaml
-  - db-migration.yaml
-
-commonLabels:
-  environment: dev
+  - ../../base
 
 patchesStrategicMerge:
   - |-
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: my-app-deployment
+      name: your-application
+      env: ../dev
     spec:
       template:
         spec:
+          initContainers:
+          - name: init-migrate
+            image: your-migration-image:latest
+            command: ["/bin/sh", "-c", "sh /scripts/migrate.sh"]
+            volumeMounts:
+            - name: migration-scripts
+              mountPath: /scripts
           containers:
-            - name: my-app-container
-              env:
-                - name: ENVIRONMENT
-                  value: "dev"
+          - name: your-application-container
+            env:
+            - name: DB_HOST
+              value: "your-db-host"
+            - name: DB_USER
+              value: "your-db-user"
+            - name: DB_NAME
+              value: "your-db-name"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: your-db-secret
+                  key: password
+          volumes:
+          - name: migration-scripts
+            configMap:
+              name: migration-scripts
+configMapGenerator:
+  - name: migration-scripts
+    files:
+      - migrate.sh
