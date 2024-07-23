@@ -12,17 +12,17 @@ This repository contains Kubernetes configurations for deploying your applicatio
 ```
 .k8s/
 ├── base/
-│   ├── deployment.yaml
-│   ├── service.yaml
-│   └── kustomization.yaml
+│   ├── deployment.yml
+│   ├── service.yml
+│   └── kustomization.yml
 ├── overlays/
 │   ├── dev/
-│   │   ├── kustomization.yaml
-│   │   └── migration-configmap.yaml
+│   │   ├── kustomization.yml
+│   │   └── migration-configmap.yml
 │   ├── stage/
-│   │   └── kustomization.yaml
+│   │   └── kustomization.yml
 │   └── prod/
-│       └── kustomization.yaml
+│       └── kustomization.yml
 └── README.md
 ```
 
