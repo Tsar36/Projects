@@ -10,4 +10,4 @@ patchesStrategicMerge:
     spec:
       template:
         spec:
-          initContainers: []
+          initContainers: null
