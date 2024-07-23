@@ -8,7 +8,6 @@ patchesStrategicMerge:
     kind: Deployment
     metadata:
       name: your-application
-      env: ../dev
     spec:
       template:
         spec:

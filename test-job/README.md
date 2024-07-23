@@ -1,13 +1,12 @@
-# Kubernetes Deployment with DB Migration for Development, Staging, and Production
+# Kubernetes Deployment with Kustomize
 
-## Task:
-  1.	Base Deployment and Service: Defined in the base directory.
-	2.	Dev Overlay: Adds database migration handling via an InitContainer.
-	3.	Stage Overlay: Extends the dev overlay by setting the number of replicas to 2 and adding a readiness probe.
-	4.	Prod Overlay: Extends the stage overlay by removing the InitContainer used for database migrations.
+This repository contains Kubernetes configurations for deploying your application across different environments using Kustomize. The environments include development, staging, and production.
 
+## Prerequisites
 
-This project sets up a basic Kubernetes deployment for an application and includes a database migration job for the development and staging environments using Kustomize. The production environment excludes the database migration job.
+- Kubernetes cluster (minikube, GKE, EKS, AKS, etc.)
+- `kubectl` command-line tool installed and configured to communicate with your cluster.
+- `kustomize` (included in `kubectl` v1.14+)
 
 ## Directory Structure
 ```
@@ -27,52 +26,65 @@ This project sets up a basic Kubernetes deployment for an application and includ
 └── README.md
 ```
 
-## Files
+## Base Configuration
 
-- **base**:
-  - `deployment.yaml`: Defines the main application deployment.
-  - `db-migration.yaml`: Defines a job to handle database migration.
-  - `kustomization.yaml`: Kustomize configuration for the base resources.
-- **overlays/staging**:
-  - `deployment-patch.yaml`: Patch for staging to set replicas and readiness probe.
-  - `kustomization.yaml`: Kustomize configuration for staging overlay.
-- **overlays/production**:
-  - `kustomization.yaml`: Kustomize configuration for production overlay, removing the DB migration job.
-- `README.md`: This README file.
+The base configuration includes the general deployment and service definitions for your application.
 
-## Prerequisites
+- **k8s/base/deployment.yaml**: Defines the deployment of your application.
+- **k8s/base/service.yaml**: Defines the service to expose your application.
+- **k8s/base/kustomization.yaml**: Kustomize file to manage base resources.
 
-- Kubernetes cluster (minikube, GKE, EKS, AKS, etc.)
-- `kubectl` command-line tool installed and configured to communicate with your cluster.
-- `kustomize` (included in `kubectl` v1.14+)
+## Development Overlay
 
-## Instructions
+The development overlay extends the base configuration to include database migration processing.
 
-### Apply Development Configuration
+- **k8s/overlays/dev/migration-configmap.yaml**: ConfigMap containing the migration script.
+- **k8s/overlays/dev/kustomization.yaml**: Kustomize file to add the InitContainer for database migrations.
 
-Navigate to the base directory and run:
+## Staging Overlay
 
+The staging overlay extends the development configuration to include additional settings such as replicas and readiness probes.
+
+- **k8s/overlays/stage/kustomization.yaml**: Kustomize file to set replicas to 2 and add a readiness probe.
+
+## Production Overlay
+
+The production overlay extends the staging configuration by removing the database migration processing.
+
+- **k8s/overlays/prod/kustomization.yaml**: Kustomize file to remove the InitContainer for database migrations.
+
+## Applying Configurations
+
+To apply the configurations for a specific environment, navigate to the respective directory and run the following command:
+
+### Development
+
+```sh
+kubectl apply -k overlays/dev
 ```
-kubectl apply -k ./base
+### Staging
+
+```sh
+kubectl apply -k overlays/stage
+```
+### Production
+
+```sh
+kubectl apply -k overlays/prod
 ```
 
-## Apply Staging Configuration
+## Explanation
 
-Navigate to the staging overlay directory and run:
-```
-kubectl apply -k ./overlays/staging
-```
-## Apply Production Configuration
+	•	Base Deployment and Service: Defined in the base directory.
+	•	Dev Overlay: Adds an InitContainer to handle database migrations.
+	•	Stage Overlay: Extends the dev overlay by setting replicas to 2 and adding a readiness probe.
+	•	Prod Overlay: Extends the stage overlay by removing the InitContainer used for database migrations.
 
-Navigate to the production overlay directory and run:
-```
-kubectl apply -k ./overlays/production
-```
 
 # Notes
 
 	•	Ensure that the Docker images (my-app-image:latest and my-db-migration-image:latest) are available in the container registry accessible by your Kubernetes cluster.
-	•	Modify the command field in db-migration-job.yaml to match your actual database migration command. For example, using a custom migration script:
+	•	Modify the command field in 'db-migration.yaml' to match your actual database migration command. For example, using a custom migration script:
 
 ## Cleanup
 
@@ -90,4 +102,4 @@ This setup helps manage a Kubernetes deployment along with a database migration 
 P.S. 
 In the folder 'scripts' are a few examples of migrate.sh scripts for different scenarios. These scripts assume that the necessary tools are installed in the Docker image and the environment variables are set appropriately.
 
-Feel free to adjust the README further as needed! :)
+## :)
