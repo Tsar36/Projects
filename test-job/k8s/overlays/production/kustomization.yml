@@ -1,8 +1,10 @@
 resources:
-  - ../stage
+- ../stage
 
-patchesStrategicMerge:
-  - |-
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+patches:
+- patch: |-
     apiVersion: apps/v1
     kind: Deployment
     metadata:

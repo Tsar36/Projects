@@ -1,9 +1,15 @@
 # Step 2.1: Kustomization File | With the help of kustomization, expand by adding DB migration processing for dev
 resources:
-  - ../../base
+- ../../base
 
-patchesStrategicMerge:
-  - |-
+configMapGenerator:
+- files:
+  - migrate.sh
+  name: migration-scripts
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+patches:
+- patch: |-
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -36,7 +42,3 @@ patchesStrategicMerge:
           - name: migration-scripts
             configMap:
               name: migration-scripts
-configMapGenerator:
-  - name: migration-scripts
-    files:
-      - migrate.sh
