@@ -4,6 +4,10 @@ resources:
 - ../../base
 - namespace.yml
 namespace: dev
+labels:
+- includeSelectors: true
+  pairs:
+    env: dev
 configMapGenerator:
 - files:
   - migrate.sh
