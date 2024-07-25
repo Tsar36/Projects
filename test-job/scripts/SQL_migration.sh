@@ -2,8 +2,6 @@
 
 #!/bin/sh
 
-# Custom SQL Database Migration Script
-
 # Set database connection parameters
 DB_HOST="db_host"
 DB_PORT="5432"
