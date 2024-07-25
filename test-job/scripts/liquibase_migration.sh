@@ -2,8 +2,6 @@
 
 #!/bin/sh
 
-# Liquibase Database Migration Script
-
 # Set the Liquibase configuration
 LIQUIBASE_URL="jdbc:postgresql://db_host:5432/db_name"
 LIQUIBASE_USERNAME="db_user"
