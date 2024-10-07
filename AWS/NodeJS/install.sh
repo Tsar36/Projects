@@ -4,7 +4,8 @@
 
 
 # Configure the instance itself to receive and send the traffic on ports: 8080/80
-echo "Configuring iptables..."
+
+# echo "Configuring iptables..."
 # sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 # sudo iptables -A INPUT -p tcp -m tcp --sport 80 -j ACCEPT
 # sudo iptables -A OUTPUT -p tcp -m tcp --dport 80 -j ACCEPT
