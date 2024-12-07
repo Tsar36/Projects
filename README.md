@@ -1,2 +1,2 @@
 # Projects
-The collection of the test tasks
+The collection of my test tasks.
