@@ -1,0 +1,1 @@
+An Azure deployment project
