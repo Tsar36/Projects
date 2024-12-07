@@ -1,4 +1,4 @@
-#.Net project
+# .Net project based on >=8 version
 ## Run the project localy:
 ```bash
 dotnet build
