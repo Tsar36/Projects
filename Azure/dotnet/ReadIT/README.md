@@ -1,5 +1,13 @@
 # The "Internet Bookshop" project based on .Net >=8 version
-### Run the project localy:
+
+### Run the project localy (catalog):
+```bash 
+dotnet publish -o publish
+```
+- then your code is ready to deploy to VM.
+- configure the local server (IIS)
+
+### Run the project localy (inventory and catalog):
 ```bash
 dotnet build
 dotnet run
