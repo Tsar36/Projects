@@ -5,7 +5,7 @@
 dotnet publish -o publish
 ```
 - then your code is ready to deploy to VM.
-- configure the local server (IIS)
+- configure the local server (IIS) with 'Web server' role.
 
 ### Run the project localy (inventory and catalog):
 ```bash
