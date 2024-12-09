@@ -14,5 +14,18 @@ dotnet run
 ```
 Then open the browser on http://localhost:5002 for the 'inventory' site & open http://localhost:5000/ for the 'catalog' site.
 
+### The Weather API. (OPTIONAL)
+- The 'catalog' app contains the widget of the 'Weather API'. To access it, you need run a new VM (Ubuntu) in the same place ('Vnet') with 'catalog'.
+- In the VM, just run the commands in bash:
+```bash
+sudo apt install git
+sudo apt update
+sudo apt install nodejs
+sudo git clone https://github.com/memilavi/weatherAPI.git
+cd weatherAPI
+sudo apt install npm
+npm start
+```
+
 ## Run the project on the 'Azure App Service'
 ... soon
