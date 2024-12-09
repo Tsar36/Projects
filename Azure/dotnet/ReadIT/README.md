@@ -15,7 +15,7 @@ dotnet run
 Then open the browser on http://localhost:5002 for the 'inventory' site & open http://localhost:5000/ for the 'catalog' site.
 
 ### The Weather API. (OPTIONAL)
-- The 'catalog' app contains the widget of the 'Weather API'. To access it, you need run a new VM (Ubuntu) in the same place ('Vnet') with 'catalog'.
+- The 'catalog' app contains the widget  of the 'Weather API'. To access it, you need to run a new VM (Ubuntu) in the same place ('Vnet') when 'catalog'.
 - In the VM, just run the commands in bash:
 ```bash
 sudo apt install git
