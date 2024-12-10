@@ -18,7 +18,7 @@ Then open the browser on http://localhost:5002 for the 'inventory' site & open h
 ### The Weather API. (OPTIONAL)
 - The 'catalog' app contains the widget  of the 'Weather API'. To access it, you need to run a new VM (Ubuntu) in the same place ('Vnet') when 'catalog'.
 - In the VM, just run the commands in bash:
-```bash
+``` bash
 sudo apt install git
 sudo apt update
 sudo apt install nodejs
