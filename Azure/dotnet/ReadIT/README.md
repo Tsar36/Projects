@@ -29,4 +29,10 @@ npm start
 ```
 
 ## Run the project on the 'Azure App Service'
-... soon
+- Create the Web App on portal.
+- Click on "Deploy to Web App" from the left side window.
+- Make sure to login and check the status on the Azure portal.
+
+## Cart folder
+"It's a shoping cart of the project. The deployment is the similar inventory - local deployment, but contains the another way to deploy to the portal - docker image wich will be leverage with services: ACR and AKS.
+Contains: Dockerfile for ACR, and deployment.yml file for AKS."
