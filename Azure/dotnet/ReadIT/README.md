@@ -28,7 +28,7 @@ sudo apt install npm
 npm start
 ```
 
-## Run the project on the 'Azure App Service'
+## Run the project 'inventory' on the 'Azure App Service'
 - Create the Web App on portal.
 - Click on "Deploy to Web App" from the left side window.
 - Make sure to login and check the status on the Azure portal.
