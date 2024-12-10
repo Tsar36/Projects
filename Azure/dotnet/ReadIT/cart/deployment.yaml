@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: readit-cart
-        image: <container-registry-name>.azurecr.io/cart:latest
+        image: tsarreaditapp.azurecr.io/cart:latest # your ACR name. Can be changed the versions
         resources:
           limits:
             memory: "128Mi"
