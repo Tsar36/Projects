@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ba8674d1-45bc-4a36-a99b-8f86bff9f607/resourceGroups/ReadIT/providers/Microsoft.Web/sites/tsar-readit-inventory/slots/staging",
+    "appService.deploySubpath": "dotnet/ReadIT/inventory"
+}
