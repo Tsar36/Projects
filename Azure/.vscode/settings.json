@@ -1,4 +1,10 @@
 {
     "appService.defaultWebAppToDeploy": "/subscriptions/ba8674d1-45bc-4a36-a99b-8f86bff9f607/resourceGroups/ReadIT/providers/Microsoft.Web/sites/tsar-readit-inventory/slots/staging",
-    "appService.deploySubpath": "dotnet/ReadIT/inventory"
+    "appService.deploySubpath": "dotnet/ReadIT/inventory",
+    "azureFunctions.deploySubpath": "dotnet/ReadIT/order/bin/Release/net8.0/publish",
+    "azureFunctions.projectLanguage": "C#",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.projectSubpath": "dotnet/ReadIT/order",
+    "azureFunctions.preDeployTask": "publish (functions)"
 }
