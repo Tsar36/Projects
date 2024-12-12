@@ -33,6 +33,13 @@ npm start
 - Click on "Deploy to Web App" from the left side window.
 - Make sure to login and check the status on the Azure portal.
 
-## Cart folder
+## 'Cart' folder
 "It's a shoping cart of the project. The deployment is the similar inventory - local deployment, but contains the another way to deploy to the portal - docker image wich will be leverage with services: ACR and AKS.
 Contains: Dockerfile for ACR, and deployment.yml file for AKS."
+
+## 'Order' folder
+The most important files in this project are these two:
+- the ProcessOrderCosmos and the ProcessOrderStorage.
+
+These two files are basically the two functions that are going to be part of our function app. And one of them is going to process the orders and store them in the Cosmos DB. And the second one is going to store them in storage account.
+
