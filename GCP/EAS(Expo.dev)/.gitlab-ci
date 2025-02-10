@@ -1,0 +1,59 @@
+# Automation of environment to build via "${CI_COMMIT_BRANCH}"
+
+# 📌 How does it work?
+# • If you push code to dev → eas build --profile development runs
+# • If you push code to staging → eas build --profile staging runs
+
+# 🚀 Advantage: automatic environment selection without manual launch.
+
+variables:
+  EAS_BUILD_PROFILE: "${CI_COMMIT_BRANCH}"
+
+eas_build:
+  stage: build
+  dependencies:
+    - install_dependencies
+  script:
+    - echo "Building for branch: $CI_COMMIT_BRANCH"
+    - echo "Using EAS profile: $EAS_BUILD_PROFILE"
+    - eas build --profile $EAS_BUILD_PROFILE --platform android --non-interactive
+  only:
+    - dev
+    - staging
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1h
+
+
+
+
+######################################################################################################################
+
+# Option 2: Selecting an environment when manually starting a pipeline
+
+# This option allows you to select an environment before starting CI/CD via the GitLab UI.
+
+# 📌 How to do it?
+# • In gitlab-ci.yml, add when: manual and environment to job.
+# • Add EAS_BUILD_PROFILE as a parameter (EAS_ENVIRONMENT).
+# • GitLab will allow you to select the desired environment before starting! 🎯
+
+eas_build:
+  stage: build
+  dependencies:
+    - install_dependencies
+  script:
+    - echo "Building with profile: $EAS_ENVIRONMENT"
+    - eas build --profile $EAS_ENVIRONMENT --platform android --non-interactive
+  only:
+    - Expo_configure
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1h
+  when: manual
+  environment:
+    name: $EAS_ENVIRONMENT
+  variables:
+    EAS_ENVIRONMENT: "development"
