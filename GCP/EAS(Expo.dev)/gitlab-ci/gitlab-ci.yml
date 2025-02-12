@@ -1,0 +1,114 @@
+image: node:18
+
+stages:
+  - install
+  - build
+  - deploy
+
+services:
+  - docker:27-dind
+
+variables:
+  GIT_DEPTH: "0"
+  DOCKER_HOST: "tcp://docker:2375"
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: "overlay2"
+
+before_script:
+  - |
+    echo "Branch: $CI_COMMIT_BRANCH"
+    echo "Working directory: $(pwd)"
+    ls -la
+    npm install -g eas-cli
+    eas --version
+    if [[ -z "$BUILD_PLATFORM" ]]; then
+      echo "ERROR: BUILD_PLATFORM is not set!"; exit 1;
+    fi
+    echo "Selected platform: $BUILD_PLATFORM"
+
+install_dependencies:
+  stage: install
+  script:
+    - echo "Installing dependencies..."
+    - npm ci --unsafe-perm
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1d
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+  when: manual
+
+eas_build_android:
+  stage: build
+  dependencies:
+    - install_dependencies
+  script:
+    - echo "Starting Android build..."
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "dev" ]]; then
+        export EAS_ENVIRONMENT="development"
+        export API_URL="$API_URL_DEV"
+      elif [[ "$CI_COMMIT_BRANCH" == "staging" ]]; then
+        export EAS_ENVIRONMENT="staging"
+        export API_URL="$API_URL_STAGING"
+      else
+        export EAS_ENVIRONMENT="production"
+        export API_URL="$API_URL_PROD"
+      fi
+      echo "Selected environment: $EAS_ENVIRONMENT"
+      echo "Using API_URL: $API_URL"
+    - npm run web:build
+    - eas build --profile "$EAS_ENVIRONMENT" --platform android --non-interactive
+  artifacts:
+    paths:
+      - build/android/
+    expire_in: 7d
+  when: manual
+  environment:
+    name: "$EAS_ENVIRONMENT-android"
+
+eas_build_ios:
+  stage: build
+  dependencies:
+    - install_dependencies
+  script:
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "dev" ]]; then
+        export EAS_ENVIRONMENT="development"
+        export API_URL="$API_URL_DEV"
+      elif [[ "$CI_COMMIT_BRANCH" == "staging" ]]; then
+        export EAS_ENVIRONMENT="staging"
+        export API_URL="$API_URL_STAGING"
+      else
+        export EAS_ENVIRONMENT="production"
+        export API_URL="$API_URL_PROD"
+      fi
+      echo "Selected environment: $EAS_ENVIRONMENT"
+      echo "Using API_URL: $API_URL"
+    - eas build --profile "$EAS_ENVIRONMENT" --platform ios --non-interactive
+  artifacts:
+    paths:
+      - build/ios/
+    expire_in: 7d
+  when: manual
+  environment:
+    name: "$EAS_ENVIRONMENT-ios"
+
+deploy_to_internal_server:
+  stage: deploy
+  dependencies:
+    - eas_build_android
+    - eas_build_ios
+  script:
+    - echo "Deploying to internal server..."
+    - scp -r build/android/* user@internal-server:/var/www/app/android/
+    - scp -r build/ios/* user@internal-server:/var/www/app/ios/
+  only:
+    - main
+    - staging
+    - dev
+  environment:
+    name: "$EAS_ENVIRONMENT-internal"
